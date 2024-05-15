@@ -40,6 +40,14 @@ async def delete_all_referal_users(user_id):
     
 class Database:
     
+    async def find_join_req(self, id):
+        return bool(await self.req.find_one({'id': id}))
+        
+    async def add_join_req(self, id):
+        await self.req.insert_one({'id': id})
+    async def del_join_req(self):
+        await self.req.drop()
+
     def __init__(self, uri, database_name):
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
